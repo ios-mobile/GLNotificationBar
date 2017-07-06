@@ -255,7 +255,7 @@ open class GLNotificationBar: NSObject {
         }
 
         var infoDic:Dictionary = Bundle.main.infoDictionary!
-        appName = infoDic["CFBundleName"] as? String
+        appName = infoDic["CFBundleDisplayName"] as? String
         notificationBar.header.text = appName
         
         if infoDic["CFBundleIcons"] != nil {
@@ -264,6 +264,9 @@ open class GLNotificationBar: NSObject {
             appIconName = (infoDic["CFBundleIconFiles"]! as AnyObject).object(at: 0) as! String
             notificationBar.appIcon.image = UIImage(named: appIconName)
             
+        } else if infoDic["CFBundleIconFiles"] != nil {
+            appIconName = (infoDic["CFBundleIconFiles"]! as AnyObject).object(at: 0) as! String
+            notificationBar.appIcon.image = UIImage(named: appIconName)
         } else {
             notificationBar.appIcon.layer.borderColor = UIColor.gray.cgColor
             notificationBar.appIcon.layer.borderWidth = 1.0
